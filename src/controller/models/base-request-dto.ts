@@ -1,4 +1,4 @@
-export class BaseSuccessRequestDto {
+export class BaseSuccessResponseDto {
   code: number;
   data: any;
   message: string;
@@ -16,5 +16,15 @@ export class BaseRequestNotFoundDto {
   constructor() {
     this.message = "Request Not Found";
     this.code = 400;
+  }
+}
+
+export class InternalErrorResponseDto {
+  message: string;
+  code: number
+
+  constructor() {
+    this.message = "Internal Error";
+    this.code = 500;
   }
 }

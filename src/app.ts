@@ -2,7 +2,7 @@ import express, { Application, Request, Response, NextFunction } from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import morgan from "morgan";
-
+import * as mongodb from "mongodb"
 import { UserController } from "./controller/user.controller";
 import { BaseRequestNotFoundDto } from "./controller/models/base-request-dto";
 const app: Application = express();
@@ -23,6 +23,15 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   }
   next();
 });
+
+var Database
+const url = "mongodb://localhost:27017/"
+mongodb.MongoClient.connect(url , (err , db) => {
+  if (err) {
+    throw err
+  }
+  Database = db.db("food-planner-user")
+})
 
 app.get("/api/v1/", (req: Request, res: Response, next: NextFunction) => {
   res.status(200).json({
